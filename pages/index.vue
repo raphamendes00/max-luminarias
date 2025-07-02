@@ -1,13 +1,12 @@
 <template>
-    <div class="container mx-auto p-4">
-        <template>
-            <h1 class="text-3x1 font-bold">Bem vindo à Max Lumer Luminárias</h1>
-        </template>
-        <p class="my-4">Explore nossos produtos e saiba mais sobre nós!</p>
-        <div class="space-x-4">
-            
-        </div>
-    </div>
+    <v-container>
+        <v-row>
+            <v-col class="d-flex">
+                <p class="me-2">/Home</p>
+                <p>/Sobre Nós</p>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script setup lang="ts"></script>
