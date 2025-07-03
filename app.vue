@@ -2,16 +2,31 @@
   <v-app>
     <!-- Header with v-app-bar -->
     <v-app-bar :elevation="2" color="yellow" dark height="100">
-      
-
+      <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <!-- Logo, Title, and Search Field -->
       <v-container class="d-flex align-center justify-space-between px-4" style="max-width: 600px;">
         <div class="d-flex align-center">
-          <!-- <v-img src="https://via.placeholder.com/40" class="mr-2" contain height="40" width="40"></v-img> -->
           <v-app-bar-title class="title">Max Lumer Luminárias</v-app-bar-title>
         </div>
       </v-container>
     </v-app-bar>
+
+    <v-navigation-drawer
+      v-model="drawer"
+      temporary
+    >
+      <v-list>
+        <v-list-item
+          v-for="item in navItems"
+          :key="item.title"
+          :to="item.path"
+          link
+          @click="drawer = false"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <!-- Main Content -->
     <v-main>
@@ -36,7 +51,7 @@ const drawer = ref(false);
 
 const navItems = ref([
   { title: 'Home', path: '/' },
-  { title: 'About', path: '/about' },
+  { title: 'Sobre Nós', path: '/sobre-nos' },
 ]);
 </script>
 
