@@ -1,39 +1,86 @@
 <template>
-    <v-container>
-        <v-row>
-            <v-col class="d-flex justify-center" cols="12" sm="6" md="4">
-                <h1 class="title">Nossos produtos</h1>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col class="d-flex flex-column align-center" v-for="(img, i) in images" :key="i" cols="12" sm="6" md="4">
-                <img :src="img" alt="" class="w-100 h-100 image-content">
-                <v-btn
-                    @click="redirectToWhatsapp"
-                    class="mt-2 d-flex align-center"
-                    style="max-width: 200px; max-height: 36px; background-color: #263238;"
-                    >
-                    <img
-                        src="/assets/images/whatsapp.png"
-                        alt="WhatsApp"
-                        style="width: 20px; height: 20px; margin-right: 8px;"
-                    />
-                    <span style="color: #fff; font-family: Arial, Helvetica, sans-serif;">Saiba mais</span>
-                </v-btn>
-            </v-col>
-        </v-row>
-    </v-container>
+  <v-container fluid class="pa-4 pa-sm-8"> <!-- opcional: tira padding ou deixa maior -->
+
+    <!-- LINHA DO TÍTULO + BOTÃO -->
+    <v-row class="mb-8">
+      <v-col cols="12">
+        <div class="d-flex justify-space-between align-center flex-wrap">
+          <h1 class="text-h4 font-weight-bold">Nossos produtos</h1>
+
+          <v-btn
+            @click="redirectToWhatsapp"
+            color="#263238"
+            variant="flat"
+            class="text-none"
+            prepend-icon="mdi-whatsapp"
+            size="large"
+          >
+            Saiba mais
+          </v-btn>
+        </div>
+      </v-col>
+    </v-row>
+
+    <!-- GRID DAS IMAGENS -->
+    <v-row>
+        <v-col
+            v-for="(img, i) in images"
+            :key="img.fileName"
+            cols="6"     
+            sm="4"       
+            md="3" 
+            lg="3"
+            xl="2"      
+            class="d-flex justify-center"
+        >
+            <img
+                :src="img.url"
+                :alt="img.fileName"
+                class="w-100 image-content"
+
+                @click="openModal(i)"
+            />
+        </v-col>
+    </v-row>
+    <ImageModal
+      v-model="showModal"
+      :images="images"
+      :initialIndex="selectedIndex"
+      @close="onModalClose"
+    />
+  </v-container>
 </template>
 
 <script setup lang="ts">
-import image from '@/assets/images/IMG-20250702-WA0001.jpg'
-import image1 from '@/assets/images/Imagem do WhatsApp de 2025-07-02 à(s) 22.34.20_2a36dbd7.jpg'
-import image3 from '@/assets/images/Imagem do WhatsApp de 2025-07-02 à(s) 22.34.26_e6a86426.jpg'
+import ImageModal from '~/components/imageModal.vue';
 
-const images = ref([image, image1, image3])
+const modules = import.meta.glob('/assets/images/*.{png,jpg,jpeg,webp,svg,gif}', {
+  eager: true,
+  as: 'url'
+})
+
+const images = ref<{ fileName: string; url: string }[]>(
+  Object.entries(modules).map(([path, url]) => {
+    const fileName = path.split('/').pop() || path
+    return { fileName, url: url as string }
+  })
+)
 
 function redirectToWhatsapp() {
-    window.open('https://wa.me/5581999999999', '_blank');
+  window.open('https://wa.me/5531994406865', '_blank');
+}
+
+const showModal = ref(false)
+const selectedIndex = ref(0)
+
+function openModal(i: number) {
+  selectedIndex.value = i
+  showModal.value = true
+}
+
+function onModalClose() {
+  // opcional: alguma lógica quando modal fecha
+  // ex: console.log('modal fechado')
 }
 </script>
 

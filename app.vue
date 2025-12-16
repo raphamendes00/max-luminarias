@@ -65,7 +65,6 @@ import { ref } from 'vue';
 const navItems = ref([
   { title: 'Produtos', path: '/' },
   { title: 'Quem somos', path: '/sobre-nos' },
-  { title: 'Contato', path: '/contato' },
 ]);
 
 const drawerOpen = ref(false);
