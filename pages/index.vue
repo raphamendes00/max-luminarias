@@ -4,19 +4,8 @@
     <!-- LINHA DO TÍTULO + BOTÃO -->
     <v-row class="mb-8">
       <v-col cols="12">
-        <div class="d-flex justify-space-between align-center flex-wrap">
+        <div class="d-flex justify-center align-center flex-wrap">
           <h1 class="text-h4 font-weight-bold">Nossos produtos</h1>
-
-          <v-btn
-            @click="redirectToWhatsapp"
-            color="#263238"
-            variant="flat"
-            class="text-none"
-            prepend-icon="mdi-whatsapp"
-            size="large"
-          >
-            Saiba mais
-          </v-btn>
         </div>
       </v-col>
     </v-row>
@@ -67,7 +56,7 @@ const images = ref<{ fileName: string; url: string }[]>(
 )
 
 function redirectToWhatsapp() {
-  window.open('https://wa.me/5531994406865', '_blank');
+  window.open('https://api.whatsapp.com/send?phone=553194406865', '_blank');
 }
 
 const showModal = ref(false)
